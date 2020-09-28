@@ -1,0 +1,165 @@
+﻿@{
+    ViewBag.Title = "CreateRoles";
+    Layout = "~/Views/Shared/_Layout3.cshtml";
+}
+
+
+    <section class="content-header">
+        <h1>
+            Roles
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">Verifications</li>
+        </ol>
+    </section>
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Manage Roles</h3>
+                </div>
+                <!-- /.box-header -->
+                <a class="btn btn-success" style="margin-bottom:10px" onclick="PopupForm('@Url.Action("CreateRoles","Admin")')"><i class="fa fa-plus"></i> Add New</a>
+
+                <div class="box-body">
+                    <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>FirstName</th>
+                                <th>LastName</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Country</th>
+                                <th>Cin</th>
+                                <th>Address</th>
+                                <th>City</th>
+                                <th>Image</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                    </table>
+                    <link href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+                    <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" rel="stylesheet" />
+                    <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.theme.min.css" rel="stylesheet" />
+
+                </div>
+            </div>
+            <!-- /.box -->
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+
+    <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.min.js"></script>
+</section>
+<script>
+        var dataTable;
+        $(document).ready(function () {
+            dataTable = $("#example1").DataTable({
+                "ajax": {
+                    "url": "/Verification/GetData",
+                    "type": "GET",
+                    "dataType": "json"
+                },
+                "columns": [
+                    { "data": "FirstName" },
+                    { "data": "LastName" },
+                    { "data": "Email" },
+                    { "data": "PhoneNumber" },
+                    { "data": "Country" },
+                    { "data": "cin" },
+                    { "data": "address" },
+                    { "data": "City" },
+                    { "data": "image" },
+                    {"data":"Id" , "render" : function (data) {
+                        return "<a class='btn btn-default btn-sm' onclick=PopupForm('@Url.Action("Inspect","Verification")/" + data + "')><i class='fa fa-pencil'></i> Edit</a><a class='btn btn-danger btn-sm' style='margin-left:5px' onclick=Delete("+data+")><i class='fa fa-trash'></i> Delete</a>";
+                    },
+                        "orderable": false,
+                        "searchable":false,
+                        "width":"150px"
+                    }
+
+                ],
+                "language": {
+
+                    "emptyTable" : "No data found, Please click on <b>Add New</b> Button"
+                }
+            });
+        });
+
+        function PopupForm(url) {
+            var formDiv = $('<div/>');
+            $.get(url)
+            .done(function (response) {
+                formDiv.html(response)
+
+                Popup = formDiv.dialog({
+                    autoOpen: true,
+                    resizable: false,
+                    title: 'Fill Employee Details',
+                    height: 500,
+                    width: 700,
+                    close: function () {
+                        Popup.dialog('destroy').remove();
+                    }
+
+                });
+            });
+        }
+
+        function SubmitForm(form) {
+            $.validator.unobtrusive.parse(form);
+            if($(form).valid()){
+                $.ajax({
+                    type : "POST",
+                    url : form.action,
+                    data : $(form).serialize(),
+                    success : function (data) {
+                        if(data.success)
+                        {
+                            Popup.dialog('close');
+
+
+                            $.notify(data.message,{
+                                globalPosition :"top center",
+                                className : "success"
+                            })
+
+                        }
+                    }
+                });
+            }
+            return false;
+        }
+
+        function Delete(id) {
+            if(confirm('Are You Sure to Delete this Employee Record ?'))
+            {
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("Delete","Employee")/' + id,
+                    success: function (data) {
+                        if (data.success)
+                        {
+                            dataTable.ajax.reload();
+
+                            $.notify(data.message, {
+                                globalPosition: "top center",
+                                className: "success"
+                            })
+
+                        }
+                    }
+
+                });
+            }
+        }
+</script>
+}

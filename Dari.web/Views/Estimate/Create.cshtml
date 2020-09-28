@@ -1,0 +1,98 @@
+﻿@model Dari.web.Models.RequestViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+@section scripts{
+
+<section class="pd-hero-section set-bg" data-setbg="/Content/img/properties/product-content-bg.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2">
+                <div class="pd-hero-text">
+                 
+                    <h2>Your Smart Estimater</h2>
+                
+       
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+      
+<!-- Hero Section End -->
+<br /><br /><br />
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Create New Request</h4>
+        <hr />
+        <br /><br />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger " })
+
+
+        <br />
+        <div class="form-group">
+            @Html.LabelFor(model => model.TypeCh, "BUY/RENT", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EnumDropDownListFor(model => model.TypeCh, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TypeCh, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+            @Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EnumDropDownListFor(model => model.Type, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <br />
+
+        <br />
+
+        <div class="form-group">
+            @Html.LabelFor(x => Model.SelectedCountryIso3, "Governorate", htmlAttributes: new { @class = "control-label col-md-2" })
+
+            <div class="col-md-5">
+                @Html.DropDownListFor(x => Model.SelectedCountryIso3, new SelectList(Model.Countries, "Value", "Text"), htmlAttributes: new { @class = "form-control", id = "Country" })
+                @Html.ValidationMessageFor(x => x.SelectedCountryIso3, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+            @Html.LabelFor(x => Model.SelectedRegionCode, "Delegation", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-5">
+                @Html.DropDownListFor(x => Model.SelectedRegionCode, new SelectList(Model.Regions, "Value", "Text"), htmlAttributes: new { @class = "form-control", @id = "Region" })
+                @Html.ValidationMessageFor(x => x.SelectedRegionCode, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <br />
+        <div class="form-group">
+            @Html.LabelFor(model => model.Area, "(Metre)", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Area, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Area, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <br />
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <br />     <br /> <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input class="btn btn-primary btn-lg" type="button" title="Index" value="Back to The List" onclick="location.href='@Url.Action("Index", "Request")'" />
+
+                <input type="submit" value="Result Estimation" class="btn btn-primary btn-lg" />
+
+            </div>
+
+        </div>
+    </div>
+}
+<br /><br /><br />
+
+}

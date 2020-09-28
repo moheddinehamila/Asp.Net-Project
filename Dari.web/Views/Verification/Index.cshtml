@@ -1,0 +1,183 @@
+﻿@{
+    ViewBag.Title = "CreateRoles";
+    Layout = "~/Views/Shared/_Layout3.cshtml";
+}
+@section Scripts {
+
+
+    <section class="content-header">
+        <h1>
+            Verifications
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">Roles</li>
+        </ol>
+    </section>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title">Manage Verifications</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <table id="example1" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>FirstName</th>
+                                    <th>LastName</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                    <th>Country</th>
+                                    <th>Cin</th>
+                                    <th>Address</th>
+                                    <th>City</th>
+                                    <th>Image</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                        </table>
+                        <link href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+                        <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" rel="stylesheet" />
+                        <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.structure.min.css" rel="stylesheet" />
+                        <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.theme.min.css" rel="stylesheet" />
+
+                    </div>
+                </div>
+                <!-- /.box -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+
+        <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.min.js"></script>
+    </section>
+    <style>
+
+
+
+    </style>
+    <!-- DataTables -->
+    <!-- page script -->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            dataTable = $("#example1").DataTable({
+                "ajax": {
+                    "url": "/Verification/GetData",
+                    "type": "GET",
+                    "dataType": "json"
+                },
+                "columns": [
+                    { "data": "FirstName" },
+                    { "data": "LastName" },
+                    { "data": "Email" },
+                    { "data": "PhoneNumber" },
+                    { "data": "Country" },
+                    { "data": "cin" },
+                    { "data": "address" },
+                    { "data": "City" },
+                    { "data": "image" },
+                    {"data":"Id" , "render" : function (data) {
+                        return "<a class='btn btn-default btn-sm' onclick=PopupForm('@Url.Action("Inspect","Verification")/" + data + "')><i class='fa fa-pencil'></i> Inspect</a><a class='btn btn-success btn-sm' onclick=Validate(" + data + ")><i class='fas fa-check-circle'></i> Valid</a><a class='btn btn-danger btn-sm' style='margin-left:5px' onclick=Delete("+data+")><i class='fa fa-trash'></i> Delete</a>";
+                    },
+                        "orderable": false,
+                        "searchable":false,
+                        "width":"250px",
+                    }
+
+                ],
+                "language": {
+
+                    "emptyTable" : "No data found"
+                }
+            });
+        });
+
+
+
+        var Popup, dataTable;
+        function PopupForm(url) {
+        var formDiv = $('<div/>');
+        $.get(url)
+            .done(function (response) {
+                formDiv.html(response)
+
+                Popup = formDiv.dialog({
+                    autoOpen: true,
+                    resizable: true,
+                    title: 'Detailed View',
+                    height: 550,
+                    width: 720,
+
+                    close: function () {
+                        Popup.dialog('destroy').remove();
+                    }
+
+                });
+            });
+    }
+
+  
+
+
+    function Delete(id) {
+        var txt;
+        var r = confirm("Are you sure you want to Delete?");
+        if (r == true) {
+
+            $.ajax(
+            {
+
+                type: "POST",
+                url: '@Url.Action("Delete","Verification")/' + id,
+                success: function (data) {
+                    if (data.success) {
+                        dataTable.ajax.reload();
+
+                        $.notify(data.message, {
+                            globalPosition: "top center",
+                            className: "success"
+                        })
+
+                    }
+                }
+
+            });
+        }
+        
+    }
+        function Validate(id) {
+            var txt;
+            var r = confirm("Are you sure you want to Validate?");
+            if (r == true) {
+
+                $.ajax(
+                {
+                  
+                    type: "POST",
+                    url: '@Url.Action("Validate","Verification")/' + id,
+                    success: function (data) {
+                        if (data.success) {
+                            dataTable.ajax.reload();
+
+                            $.notify(data.message, {
+                                globalPosition: "top center",
+                                className: "success"
+                            })
+
+                        }
+                    }
+                        
+                });
+            }
+        }
+    </script>
+}

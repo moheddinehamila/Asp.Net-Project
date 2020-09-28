@@ -1,0 +1,581 @@
+﻿@using Microsoft.AspNet.Identity;  
+@using System.Web.Mvc; 
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Azenta Template">
+    <meta name="keywords" content="Azenta, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>DARI</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="~/Content/css/style.css" type="text/css">
+    <link rel="stylesheet" href="~/Content/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="~/Content/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="~/Content/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="~/Content/css/themify-icons.css" type="text/css">
+    <link rel="stylesheet" href="~/Content/css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="~/Content/css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="~/Content/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="~/Content/css/magnific-popup.css" type="text/css">
+    <link rel="stylesheet" href="~/Content/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.0.1/fullcalendar.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/qtip2/3.0.3/basic/jquery.qtip.css" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/qtip2/3.0.3/jquery.qtip.min.css" />
+
+    <style type="text/css">
+        .field-validation-error {
+            color: #ff0000;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Offcanvas Menu Section Begin -->
+    <div class="offcanvas-menu-overlay"></div>
+    <div class="canvas-open">
+        <i class="icon_menu"></i>
+    </div>
+    <div class="offcanvas-menu-wrapper">
+        <div class="canvas-close">
+            <i class="icon_close"></i>
+        </div>
+    </div>
+    <!-- Offcanvas Menu Section End -->
+    <!-- Header Section Begin -->
+    <header class="header-section">
+        <div class="top-nav">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-7">
+                        <nav class="main-menu">
+                            <ul>
+                                <li class="active"><a href="#">Home</a></li>
+                                <li><a href="#">Property</a></li> 
+                                @if((User.Identity.IsAuthenticated)&&(User.Identity.GetUserId().Equals("5802fc60-d45f-4ade-8552-e7c2f6ce3bd2")))
+                                    {
+                                       <li><a href="~/Furniture/Indexfurniture_owner">Furniture </a></li>
+                                 }else{
+                                    
+                                       <li><a href="~/Furniture/Indexfurniture">Furniture</a></li>
+                                } @if(User.Identity.IsAuthenticated)
+                                {
+                                    <li><a href="~/RendezVous/Viewrdv">My Apointments</a></li>
+                                }
+                               
+                                @if (true)
+                                {
+                                    <li><a href="~/Furniture/Indexfurniture_owner">Furniture</a></li>
+                                }
+                                else
+                                {
+                                    <li><a href="~/Furniture/Indexfurniture">Furniture</a></li>
+                                }
+                                <li><a href="~/Vente/Index">For sale</a></li>
+                                <li><a href="#">News</a></li>
+                                <li>@Html.ActionLink("Request", "Index", "Request")</li>
+                                <li>@Html.ActionLink("Recommendation", "Index", "Recommendation")</li>
+                                <li>@Html.ActionLink("Estimate Price", "Create", "Estimate")</li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <div class="col-lg-5">
+                        <div class="top-right">
+
+                            <a href="~/Basket/indexbasket"><img width="70" height="70" src="~/Content/images/cart.png" /></a>
+                            <a href="#" class="property-sub">Submit Property</a>
+
+                            @Html.Partial("_LoginPartial")
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @RenderSection("scripts")
+
+
+
+
+    </header>
+
+    <!-- Header End -->
+    <!-- Footer Section Begin -->
+    <footer class="footer-section set-bg" data-setbg="../../Content/img/footer-bg.jpg">
+        <div class="container">
+            <div class="footer-text">
+                <div class="row">
+                    <div class="col-lg-3">
+                        <div class="footer-logo">
+                            <div class="logo">
+                                <a href="#"><img src="~/Content/img/footer-logo.png" alt=""></a>
+                            </div>
+                            <p>Subscribe our newsletter gor get notification about new updates.</p>
+                            <form action="#" class="newslatter-form">
+                                <input type="text" placeholder="Enter your email...">
+                                <button type="submit"><i class="fa fa-location-arrow"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 offset-lg-1">
+                        <div class="footer-widget">
+                            <h4>Property City</h4>
+                            <ul>
+                                <li><i class="fa fa-caret-right"></i> <a href="#">Florida</a></li>
+                                <li><i class="fa fa-caret-right"></i> <a href="#">New York</a></li>
+                                <li><i class="fa fa-caret-right"></i> <a href="#">Washington</a></li>
+                                <li><i class="fa fa-caret-right"></i> <a href="#">Los Angeles</a></li>
+                            </ul>
+                            <ul>
+                                <li><i class="fa fa-caret-right"></i> <a href="#">St Louis</a></li>
+                                <li><i class="fa fa-caret-right"></i> <a href="#">Jacksonville</a></li>
+                                <li><i class="fa fa-caret-right"></i> <a href="#">San Jose</a></li>
+                                <li><i class="fa fa-caret-right"></i> <a href="#">San Diego</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="footer-widget">
+                            <h4>Social</h4>
+                            <ul class="social">
+                                <li><i class="ti-facebook"></i> <a href="#">Facebook</a></li>
+                                <li><i class="ti-instagram"></i> <a href="#">Instagram</a></li>
+                                <li><i class="ti-twitter-alt"></i> <a href="#">Twitter</a></li>
+                                <li><i class="ti-google"></i> <a href="#">Google+</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="footer-widget">
+                            <h4>Contact Us</h4>
+                            <ul class="contact-option">
+                                <li><i class="fa fa-map-marker"></i> 16 Creek Ave. Farming, NY</li>
+                                <li><i class="fa fa-phone"></i> (+88) 666 121 4321</li>
+                                <li><i class="fa fa-envelope"></i> info.colorlib@gmail.com</li>
+                                <li><i class="fa fa-clock-o"></i> Mon - Sat, 08 AM - 06 PM</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </footer>
+    <!-- Footer Section End -->
+    <!-- Js Plugins
+    <script src="~/Content/js/jquery.nice-select.min.js"></script>-->
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+
+    <script src="~/Content/js/jquery-3.3.1.min.js"></script>
+    <script src="~/Content/js/bootstrap.min.js"></script>
+    <script src="~/Content/js/jquery.magnific-popup.min.js"></script>
+    <script src="~/Content/js/jquery.slicknav.js"></script>
+    <script src="~/Content/js/jquery-ui.min.js"></script>
+    <script src="~/Content/js/owl.carousel.min.js"></script>
+    <script src="~/Content/js/main.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+    <script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+    <script src="//ajax.aspnetcdn.com/ajax/mvc/4.0/jquery.validate.unobtrusive.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.16.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.0.1/fullcalendar.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qtip2/3.0.3/basic/jquery.qtip.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/qtip2/3.0.3/jquery.qtip.min.js"></script>
+
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+            $('#Country').change(function () {
+                var selectedCountry = $("#Country").val();
+                var regionsSelect = $('#Region');
+                regionsSelect.empty();
+                if (selectedCountry != null && selectedCountry != '') {
+                    $.getJSON('@Url.Action("GetRegions")', { iso3: selectedCountry }, function (regions) {
+                        if (regions != null && !jQuery.isEmptyObject(regions))
+                        {
+                            regionsSelect.append($('<option/>', {
+                                value: null,
+                                text: ""
+                            }));
+                            $.each(regions, function (index, region) {
+                                regionsSelect.append($('<option/>', {
+                                    value: region.Value,
+                                    text: region.Text
+                                }));
+                            });
+                        };
+                    });
+                }
+            });
+    </script>
+    
+    <!--anouer script-->
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            var selectevent = null;
+            $('#calendar').fullCalendar({
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month,agendaWeek,agendaDay'
+                },
+                //get le calendrier from ApiCalendar  GetCalendarData
+                events: '@Url.RouteUrl(new { action = "GetCalendarData", controller = "RendezVous" })',
+                eventClick: function (calEvent, jsEvent, view) {//le click sur l'evenement va t'ouvrir un affichage qui contien plus de détails
+                    selectevent = calEvent;//l'evenement que tu as selectionner
+                    //fonction pour voir les details de l'evenements
+                    //et pour utiliser les fonction remove ou edit
+                    $('#myModal #title').text(calEvent.title);
+                    var $description = $('<div/>');
+                    $description.append($('<p/>').html('<b>Start:</b>' + calEvent.start.format("MMM-DD-YYYY HH:mm:ss")));
+                    $description.append($('<p/>').html('<b>End:</b>' + calEvent.end.format("MMM-DD-YYYY HH:mm:ss")));
+                    $description.append($('<p/>').html('<b>Description:</b>' + calEvent.description));
+                    $('#myModal #pDetails').empty().html($description);
+
+                    $('#myModal').modal();
+                },
+                //pour qu'on peut selectionné dans le calendrier
+                //et ajouter un evenement avec le drag and drop
+                //
+                selectable: true,
+                //fonction predefinie dans fullcanlendar pour la selection de datestart en dateend
+                select: function (start, end) {
+                    selectevent = {
+                        eventID: 0,
+                        title: '',
+                        description: '',
+                        start: start,
+                        end: end,
+                        allDay: false,
+                        color: ''
+                    };
+                    //maintenant on fait un appel de la form pour completre l'ajout si
+                    //il est client,buyer on ouvre 1 sinon 2
+                    
+                    openAddEditFormseller();
+                    $('#calendar').fullCalendar('unselect');
+                },
+
+                editable: true,
+                eventDrop: function (event) {
+                    var data = {
+                        id: event.eventID,
+                        title: event.title,
+                        start: event.start.format('MM/DD/YYYY HH:mm:ss'),
+                        end: event.end.format('MM/DD/YYYY HH:mm:ss'),
+                        description: event.description,
+                        color: event.color
+
+                    };
+
+                },
+                eventRender: function (event, element) {
+                    element.qtip({
+                        content: {
+                            title: { text: event.title },
+                        },
+                        show: { solo: true },
+                        hide: { when: 'inactive', delay: 3000 },
+                        style: {
+                            width: 200,
+                            padding: 5,
+                            color: 'black',
+                            textAlign: 'left',
+                            border: {
+                                width: 1,
+                                radius: 3
+                            },
+                            tip: 'topLeft',
+
+                            classes: {
+                                tooltip: 'ui-widget',
+                                tip: 'ui-widget',
+                                title: 'ui-widget-header',
+                                content: 'ui-widget-content'
+                            }
+                        }
+                    });
+                },
+
+            });
+
+
+
+            //le bouton delete
+            $('#btnDelete').click(function () {
+                if (selectevent != null && confirm('Are You Sure')) {
+                    $('#calendar').fullCalendar('removeEvents', selectevent.id);//jquery pour la supression de calendreier(affichage)
+                    $.ajax({//suppression de la baase en utilisants JS
+                        url: "/RendezVous/DeleteEvent/",
+                        dataType: "json",
+                        cache: false,
+                        type: 'POST',
+                        data: { 'id':selectevent.id },
+
+                    });
+                    $('#myModal').modal('hide');
+                }
+            })
+
+
+            //le bouton edite qui fait invoquer la forme addEditform
+            $('#btnEdit').click(function () {
+                //Open modal dialog for edit event
+                openAddEditForm();
+            })
+
+
+            //la form de dialog pour l'ajout et l'update le forme a comme id updateevent
+            //pour le buyer ("acheteur")ou le client   la valeur de couleur va etre
+            //automatiquement orangé
+            function openAddEditForm() {
+                if (selectevent != null) {
+                    $('#hdEventID').val(selectevent.id);
+                    $('#txtSubject').val(selectevent.title);
+                    $('#txtStart').val(selectevent.start.format('MM/DD/YYYY HH:mm:ss'));
+                    $('#txtEnd').val(selectevent.end.format('MM/DD/YYYY HH:mm:ss'));
+                    $('#txtDescription').val(selectevent.description);
+                   
+                }
+
+                $('#myModal').modal('hide')
+                $('#updateevent').modal();
+            }
+
+            //seller ou le vendeur ou le owner
+            function openAddEditFormseller() {
+                if (selectevent != null) {
+                    $('#hdEventID').val(selectevent.id);
+                    $('#txtSubject').val(selectevent.title);
+                    $('#txtStart').val(selectevent.start.format('MM/DD/YYYY HH:mm:ss'));
+                    $('#txtEnd').val(selectevent.end.format('MM/DD/YYYY HH:mm:ss'));
+                    $('#txtDescription').val(selectevent.description);
+                    $('#ddThemeColor').val(selectevent.color);
+                }
+
+                $('#myModal').modal('hide')
+                $('#updateevent').modal();
+            }
+
+            //fonction pour l'utilisation de la bouton datetimepicker
+            //au niveau de l'ajout et l'update de la startdate and enddate
+               $('#dtp1,#dtp2').datetimepicker({
+                format: 'MM/DD/YYYY HH:mm:ss'
+            });
+
+            //le bouton save qui va invoquer soit la fonction update
+            //ou la fonction add en utilisant une condition sur l'id
+            //si l'id est null dans la selection alors en utilise saveEvent
+            //sinon l'id n'est pas null en va utilisée la fonction update
+
+            //le bouton btnsave est pour le client buyer
+                $('#btnSave').click(function () {
+                    //verification des champs
+                    if ($('#txtSubject').val().trim() == "") {
+                        alert('Subject required');
+                        return;
+                    }
+                    if ($('#txtStart').val().trim() == "") {
+                        alert('Start date required');
+                        return;
+                    }
+                    if ($('#txtEnd').val().trim() == "") {
+                        alert('End date required');
+                        return;
+                    }
+                    var startDate = $('#txtStart').val();
+                    var endDate = $('#txtEnd').val();
+                    if (startDate > endDate) {
+                        alert('Invalid end date');
+                        return;
+                    }
+
+                    //var data
+                    //Prendre les Valeurs depuis le dialogue
+                    var data = {
+                        id: $('#hdEventID').val(),
+                        title: $('#txtSubject').val(),
+                        start: $('#txtStart').val(),
+                        end: $('#txtEnd').val(),
+                        description: $('#txtDescription').val(),
+                       
+
+                    }
+                    
+
+                    if (selectevent.id != null) {
+                       // call function to save data on DB
+                        updateEvent(data);
+                    } else {
+                        //client buyer
+                        saveEvent(data);
+                        alert('succeeed');
+                    }
+
+                })
+
+
+
+            //le bouton btnsave et pour le vendeur seller owner
+                $('#btnSaveseller').click(function () {
+                    //verification des champs
+                    if ($('#txtSubject').val().trim() == "") {
+                        alert('Subject required');
+                        return;
+                    }
+                    if ($('#txtStart').val().trim() == "") {
+                        alert('Start date required');
+                        return;
+                    }
+                    if ($('#txtEnd').val().trim() == "") {
+                        alert('End date required');
+                        return;
+                    }
+                    var startDate = $('#txtStart').val();
+                    var endDate = $('#txtEnd').val();
+                    if (startDate > endDate) {
+                        alert('Invalid end date');
+                        return;
+                    }
+
+                    //var data
+                    //Prendre les Valeurs depuis le dialogue
+                    var data = {
+                        id: $('#hdEventID').val(),
+                        title: $('#txtSubject').val(),
+                        start: $('#txtStart').val(),
+                        end: $('#txtEnd').val(),
+                        description: $('#txtDescription').val(),
+                        color: $('#ddThemeColor').val(),
+
+                    }
+
+
+                    if (selectevent.id != null) {
+                        // call function to save data on DB
+                        updateEvent(data);
+                    } else {
+
+                        saveEventseller(data);
+                        alert('succeeed');
+                    }
+
+                })
+
+            //fonction pour l'update
+            function updateEvent(data) {
+                $.ajax({
+                    url: "/RendezVous/UpdateEvent/",
+                    dataType: "json",
+                    type: 'POST',
+                    data: data,
+                    success: function (data) {
+                        if (data.status) {
+                            //Refresh the calender
+
+                            $('#calendar').fullCalendar('refetchEvents');
+                            //utilise le jquery de fullcaledar
+                            //pour raffichir
+                            $('#updateevent').modal('hide');
+                        }
+                    },
+                    error: function () {
+                        alert('Failed');
+                    }
+                })
+
+            }
+
+
+            //fonction save pour l'ajout pour le buyer le client
+            function saveEvent(data) {
+                {
+                    $.ajax({
+                        url: "/RendezVous/AddEvent/",
+                        dataType: "json",
+                        type: 'POST',
+                        data: data,
+                        success: function (data) {
+                            if (data.status) {
+                                //Refresh the calender
+                                //utilise le jquery de fullcaledar
+                                //pour raffichir
+                                $('#calendar').fullCalendar('refetchEvents');
+                                $('#updateevent').modal('hide');
+                               
+                            }
+                        },
+                        error: function () {
+                            alert('Failed');
+                        }
+                    })
+
+
+                }
+
+            }
+
+
+            //fonction save pour l'ajout pour le seller le owner
+            function saveEventseller(data) {
+                {
+                    $.ajax({
+                        url: "/RendezVous/AddEventSeller/",
+                        dataType: "json",
+                        type: 'POST',
+                        data: data,
+                        success: function (data) {
+                            if (data.status) {
+                                //Refresh the calender
+                                //utilise le jquery de fullcaledar
+                                //pour raffichir
+                                $('#calendar').fullCalendar('refetchEvents');
+                                $('#updateevent').modal('hide');
+
+                            }
+                        },
+                        error: function () {
+                            alert('Failed');
+                        }
+                    })
+
+
+                }
+
+            }
+
+        });
+
+    </script>
+    <style>
+        .containner {
+           margin: auto;
+           width: 85%;
+           min-width:600px;
+           max-width:2000px;
+           border: 1px solid #3EC5E4;
+           padding: 100px;
+        }
+    </style>
+    <!--fin anouer script-->
+</body>
+
+</html>

@@ -1,0 +1,230 @@
+﻿    @model IEnumerable<Dari.Domain.Order> 
+@{
+    Layout = null;
+    ViewBag.Title = "Bill";
+}
+
+
+@{ double pbefore = 0;}
+@{ double pfinal = 0;}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Facture </title> 
+</head>
+<body>
+
+    <div id="HTMLtoPDF">
+        <header class="clearfix">
+            <div>
+                <center>
+                    <img src="~/Content/images/Logo.png" />
+                </center>
+            </div>
+       
+
+            <h1 style="border-bottom:1px solid #5D6975;border-bottom: 1px solid #5D6975;
+            border-top: 1px solid #5D6975;
+            color: #5D6975;
+            font-size: 2.4em;
+            line-height: 1.4em;
+            font-weight: normal;
+            text-align: center;
+            margin: 0 0 20px 0;" >
+                  Your Facture</h1> 
+            <div  >
+                <div><span style="color: #5D6975;text-align: left;display: inline-block;font-size: 0.8em;">PROJECT   Website development</span></div>
+                <div><span style="color: #5D6975;text-align: left;display: inline-block;font-size: 0.8em;">CLIENT   Client Name</span></div>
+                <div><span style="color: #5D6975;text-align: left;display: inline-block;font-size: 0.8em;">ADDRESS : Client Address</span></div>
+                <div><span style="color: #5D6975;text-align: left; display: inline-block;font-size: 0.8em;">EMAIL   : Client@esprit.com</span></div>
+                <div><span style="color: #5D6975;text-align: left;display: inline-block;font-size: 0.8em;">DATE    : now</span></div>
+            </div>
+        </header>
+        <main>
+            <table  width: 100%  bo border-collapse: collapse   border-spacing: 0   margin-bottom: 20px >
+                <thead>
+                    <tr>
+                        <th>Product Name</th>
+                        <th>Description</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null)
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td >
+                                    <p style="text-align:left">@Html.DisplayFor(modelItem => item.furniture.Name)</p>  
+                                </td>
+                                <td>
+                                    <p style="text-align:left"> @Html.DisplayFor(modelItem => item.furniture.description)</p>
+
+                                </td>
+                                <td>
+                                    <p style="text-align:left">@Html.DisplayFor(modelItem => item.furniture.Price) DT</p>
+
+                                </td>
+                                <td>
+                                    <p style="text-align:left">@Html.DisplayFor(modelItem => item.Qte)</p>
+
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TotalPrice) DT
+                                </td>
+                            </tr>
+                            { pbefore = pbefore + item.TotalPrice; }
+                            { pfinal = item.FinalPrice; }
+                        }
+                    }
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td><h3>Total:</h3></td>
+                        <td><h3>@pbefore DT</h3> </td>
+                    </tr>
+                    <tr>
+
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td><h3>Discount: </h3></td>
+                        <td><h3> @(pfinal - pbefore) DT</h3> </td>
+
+                    </tr>
+                </tbody>
+            </table>
+            <h1 style="border-bottom:1px solid #5D6975;border-bottom: 1px solid #5D6975;
+            border-top: 1px solid #5D6975;
+            color: #5D6975;
+            font-size: 2.4em;
+            line-height: 1.4em;
+            font-weight: normal;
+            text-align: center;
+            margin: 0 0 20px 0;">
+                Final price: @pfinal
+            </h1> 
+
+            <br />
+            <div style="text-align:start"><h3>Sign Here</h3></div>
+            <a href="#" onclick="HTMLtoPDF()">Download</a>
+
+
+
+            <script src="~/Content/js/jspdf.js"></script>
+            <script src="~/Content/js/jquery-2.1.3.js"></script>
+            <script src="~/Content/js/pdfFromHTML.js"></script>
+        </main>
+        <footer style="
+                        color: #5D6975;
+                        width: 100%;
+                        height: 30px;
+                        position: absolute;
+                        bottom: 0;
+                        border-top: 1px solid #C1CED9;
+                        padding: 8px 0;
+                        text-align: center;">
+            <hr />
+            Thank you for choosing us, feel free to come back
+        </footer>
+        </div>
+    
+    <style>
+
+                     
+
+                                            a {
+                        color: #5D6975;
+                        text-decoration: underline;
+                    }
+
+                                        body {
+                        position: relative;
+                        width: 21cm;
+                        height: 29.7cm;
+                        margin: 0 auto;
+                        color: #001028;
+                        background: #FFFFFF;
+                        font-family: Arial, sans-serif;
+                        font-size: 12px;
+                        font-family: Arial;
+                    }
+
+                                    header {
+                        padding: 10px 0;
+                        margin-bottom: 30px;
+                    }
+
+                   
+ 
+
+                       
+                    
+
+                    table {
+                        width: 100%;
+                        border-collapse: collapse;
+                        border-spacing: 0;
+                        margin-bottom: 20px;
+                    }
+
+                        table tr:nth-child(2n-1) td {
+                            background: #F5F5F5;
+                        }
+
+                        table th,
+                        table td {
+                            text-align: left;
+                        }
+
+                        table th {
+                                        padding: 5px 20px;
+                                        color: #5D6975;
+                            border-bottom: 1px solid #C1CED9;
+                            white-space: nowrap;
+                                        font-weight: normal;
+                                    }
+
+                                    table .service,
+                        table .desc {
+                            text-align: left;
+                        }
+
+                        table td {
+                                        padding: 20px;
+                                        text-align: left;
+                                    }
+
+                                    table td.service,
+                                    table td.desc {
+                                    vertical-align:top;
+                                    }
+
+                                    table td.unit,
+                                    table td.qty,
+                                    table td.total {
+                                        font-size: 1.2em;
+                                    }
+
+                                    table td.grand {
+                                        border-top: 1px solid #5D6975;
+
+                            }
+
+            #notices .notice {
+                                    color: #5D6975;
+                        font-size: 1.2em;
+                    }
+             
+        </style>
+
+</body>
+
+
+</html>
+

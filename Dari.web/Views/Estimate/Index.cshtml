@@ -1,0 +1,30 @@
+﻿@model IEnumerable<Dari.Domain.Request>
+
+@{
+    ViewBag.Title = "Index";
+}
+@section scripts{
+
+<section class="pd-hero-section set-bg" data-setbg="/Content/img/properties/product-content-bg.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2">
+                <div class="pd-hero-text">
+
+                    <h2>Your Smart Estimater</h2>
+                    <h2>Property Price Arround : @ViewData["price"] (DT) </h2>
+                
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<center>
+
+    <input class="btn btn-primary btn-lg" type="button" title="Index" value="Back To Your Smart Estimator" onclick="location.href='@Url.Action("Create", "Estimate")'" />
+
+</center>  
+    }

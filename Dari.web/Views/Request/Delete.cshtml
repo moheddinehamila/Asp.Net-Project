@@ -1,0 +1,74 @@
+﻿@model Dari.Domain.Request
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+@section scripts{
+<div>
+    <!-- Blog Details Hero Section Begin -->
+    <!-- Property Details Hero Section Begin -->
+    <section class="pd-hero-section set-bg" data-setbg="/Content/img/properties/product-content-bg.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2">
+                    <div class="pd-hero-text">
+                        <p class="room-location">
+                            <i class="icon_pin"></i> @Html.DisplayFor(modelItem => Model.CountryIso3) :
+                            @Html.DisplayFor(modelItem => Model.RegionCode)
+                        </p>
+                        <h2>@Html.DisplayFor(modelItem => Model.Title)</h2>
+                        <div class="room-price">
+                            <span>My Budget :</span>
+                            <p>@Html.DisplayFor(modelItem => Model.Budget) (DT)</p>
+                        </div>
+                        <ul class="room-features">
+                            <li>
+                                <i class="fa fa-arrows"></i>
+                                <p>@Html.DisplayFor(modelItem => Model.Area) (Metre)</p>
+                            </li>
+                            <li>
+                                <i class="fa fa-bed"></i>
+                                <p>@Html.DisplayFor(modelItem => Model.Type)</p>
+                            </li>
+                            <li>
+                                <i class="fa fa-clock-o"></i>
+                                <p>@Html.DisplayFor(modelItem => Model.Date)</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Property Details Hero Section Begin -->
+    <!-- Property Details Section Begin -->
+    <br /><br />
+    <div align="center">
+        <h2>Delete</h2>
+
+        <h3>Are you sure you want to delete this?</h3>
+
+        <h4>
+            @Html.DisplayFor(modelItem => Model.Title)
+        </h4>
+        <br /><br />
+        @using (Html.BeginForm())
+            {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+                <input type="submit" value="Delete" class="btn btn-primary" /> |
+                <input class="btn btn-primary" type="button" title="Index" value="Back to List" onclick="location.href='@Url.Action("Index", "Request")'" />
+
+            </div>
+        }
+    </div>
+    <br /><br />
+
+
+    <!-- Partner Carousel Section End -->
+
+   
+</div>
+    }

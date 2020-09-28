@@ -1,0 +1,132 @@
+
+@{
+    ViewBag.Title = "UserInfo";
+    Layout = "~/Views/Shared/Layout2.cshtml";
+}
+@section scripts{
+
+<script src="~/Content/js/jquery-ui.min.js"></script>
+<script src="~/Content/js/jquery-3.3.1.min.js"></script>
+@Scripts.Render("~/bundles/jqueryval")
+@Scripts.Render("~/bundles/jquery")
+
+<h2>UserInfo</h2>
+<script src="~/assets/js/jquery-ui.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+    <script src="~/Content/js/jquery-ui.min.js"></script>
+    <script src="~/Content/js/jquery-3.3.1.min.js" ></script>
+
+
+
+
+<h6 class="heading-small text-muted mb-4">User information</h6>
+    <div class="pl-lg-4">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label class="form-control-label" for="input-username">FirstName</label>
+                    <input type="text" id="FirstName" class="form-control" placeholder="FirstName" value="FirstName">
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label class="form-control-label" for="input-first-name">LastName</label>
+                    <input type="text" id="LastName" class="form-control" placeholder="LastName" value="LastName">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label class="form-control-label" for="input-first-name">Email</label>
+                    <input type="text" id="Email" class="form-control" placeholder="Email" value="jesse@example.com">
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label class="form-control-label" for="input-last-name">PhoneNumber</label>
+                    <input type="text" id="PhoneNumber" class="form-control" placeholder="PhoneNumber" value="12345">
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="form-group">
+                <label class="form-control-label" for="input-last-name">Country</label>
+                <input type="text" id="Country" class="form-control" placeholder="Country" value="Canada">
+            </div>
+        </div>
+    
+        <a class="btn btn-success" style="margin-bottom:10px" onclick="PopupForm('@Url.Action("Update","Verification")')"><i class="fa fa-plus"></i> Add New</a>
+
+        <script type="text/javascript">
+    var Popup;
+    $(document).ready(function () {
+        $.ajax({
+            "url": "/Verification/json",
+            "type": "GET",
+            "datatype": "json",
+
+               success: function (data) {
+                console.valueOf(data)
+                jQuery.each(data, function (id, value) {
+                  //  id = id.replace("", "");
+                    $('input[id=' + id + ']').val(value);
+
+
+                });
+
+
+            }
+            })
+
+    })
+    function PopupForm(url) {
+        var formDiv = $('<div/>');
+        $.get(url)
+        .done(function (response) {
+            formDiv.f
+
+            Popup = formDiv.dialog({
+                autoOpen: true,
+                resizable: false,
+                title: 'Update User Info',
+                height: 500,
+                width: 700,
+                close: function () {
+                    Popup.dialog('destroy').remove();
+                }
+
+            });
+        });
+    } 
+        </script>
+        
+        <script>
+            var Popup;
+            $(document).ready(function PopupForm(url) {
+                var formDiv = $('<div/>');
+                $.get(url)
+                .done(function (response) {
+                    formDiv.
+
+                    Popup = formDiv.dialog({
+                        autoOpen: true,
+                        resizable: false,
+                        title: 'Update User Info',
+                        height: 500,
+                        width: 700,
+                        close: function () {
+                            Popup.dialog('destroy').remove();
+                        }
+
+                    });
+                });
+            })
+        </script>
+        @Scripts.Render("~/bundles/jqueryval")
+@Scripts.Render("~/bundles/jquery")
+}
+
+
+

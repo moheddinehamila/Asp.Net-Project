@@ -1,0 +1,164 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Azenta Template">
+    <meta name="keywords" content="Azenta, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>DARI</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="~/Content/css/style.css" type="text/css">
+    <link rel="stylesheet" href="~/Content/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="~/Content/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="~/Content/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="~/Content/css/themify-icons.css" type="text/css">
+    <link rel="stylesheet" href="~/Content/css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="~/Content/css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="~/Content/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="~/Content/css/magnific-popup.css" type="text/css">
+    <link rel="stylesheet" href="~/Content/css/slicknav.min.css" type="text/css">
+</head>
+
+<body>
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Offcanvas Menu Section Begin -->
+    <div class="offcanvas-menu-overlay"></div>
+    <div class="canvas-open">
+        <i class="icon_menu"></i>
+    </div>
+    <div class="offcanvas-menu-wrapper">
+        <div class="canvas-close">
+            <i class="icon_close"></i>
+        </div>
+    </div>
+    <!-- Offcanvas Menu Section End -->
+    <!-- Header Section Begin -->
+    <header class="header-section">
+        <div class="top-nav">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-7">
+                        <nav class="main-menu">
+                            <ul>
+                                <li class="active"><a href="./index.html">Home</a></li>
+                                <li><a href="./property.html">Property</a></li>
+                                <li><a href="~/Furniture/Index">Furniture</a></li>
+                                <li><a href="~/Vente/Index">For sale</a></li>
+                               
+                                <li><a href="./about-us.html">Agets</a></li>
+                                <li><a href="./blog.html">News</a></li> 
+                                
+                            </ul>
+
+
+
+                        </nav>
+                    </div>
+                    <div class="col-lg-5">
+                        <div class="top-right">
+                              
+                            <a href="~/Basket/Index"><img width="70" height="70" src="~/Content/images/cart.png" /></a>
+                            <a href="#" class="property-sub">Submit Property</a>
+                            @Html.Partial("_LoginPartial")
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+         
+        @RenderSection("scripts")
+
+         
+
+
+    </header>
+    <!-- Header End -->
+    <!-- Footer Section Begin -->
+    <footer class="footer-section set-bg" data-setbg="~/Content/img/footer-bg.jpg">
+        <div class="container">
+            <div class="footer-text">
+                <div class="row">
+                    <div class="col-lg-3">
+                        <div class="footer-logo">
+                            <div class="logo">
+                                <a href="#"><img src="~/Content/img/footer-logo.png" alt=""></a>
+                            </div>
+                            <p>Subscribe our newsletter gor get notification about new updates.</p>
+                            <form action="#" class="newslatter-form">
+                                <input type="text" placeholder="Enter your email...">
+                                <button type="submit"><i class="fa fa-location-arrow"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 offset-lg-1">
+                        <div class="footer-widget">
+                            <h4>Property City</h4>
+                            <ul>
+                                <li><i class="fa fa-caret-right"></i> <a href="#">Florida</a></li>
+                                <li><i class="fa fa-caret-right"></i> <a href="#">New York</a></li>
+                                <li><i class="fa fa-caret-right"></i> <a href="#">Washington</a></li>
+                                <li><i class="fa fa-caret-right"></i> <a href="#">Los Angeles</a></li>
+                            </ul>
+                            <ul>
+                                <li><i class="fa fa-caret-right"></i> <a href="#">St Louis</a></li>
+                                <li><i class="fa fa-caret-right"></i> <a href="#">Jacksonville</a></li>
+                                <li><i class="fa fa-caret-right"></i> <a href="#">San Jose</a></li>
+                                <li><i class="fa fa-caret-right"></i> <a href="#">San Diego</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="footer-widget">
+                            <h4>Social</h4>
+                            <ul class="social">
+                                <li><i class="ti-facebook"></i> <a href="#">Facebook</a></li>
+                                <li><i class="ti-instagram"></i> <a href="#">Instagram</a></li>
+                                <li><i class="ti-twitter-alt"></i> <a href="#">Twitter</a></li>
+                                <li><i class="ti-google"></i> <a href="#">Google+</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="footer-widget">
+                            <h4>Contact Us</h4>
+                            <ul class="contact-option">
+                                <li><i class="fa fa-map-marker"></i> 16 Creek Ave. Farming, NY</li>
+                                <li><i class="fa fa-phone"></i> (+88) 666 121 4321</li>
+                                <li><i class="fa fa-envelope"></i> info.colorlib@gmail.com</li>
+                                <li><i class="fa fa-clock-o"></i> Mon - Sat, 08 AM - 06 PM</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+             
+        </div>
+    </footer>
+    <!-- Footer Section End -->
+    <!-- Js Plugins -->
+    <script src="~/Content/js/jquery-3.3.1.min.js"></script>
+    <script src="~/Content/js/bootstrap.min.js"></script>
+    <script src="~/Content/js/jquery.magnific-popup.min.js"></script>
+    <script src="~/Content/js/jquery.nice-select.min.js"></script>
+    <script src="~/Content/js/jquery.slicknav.js"></script>
+    <script src="~/Content/js/jquery-ui.min.js"></script>
+    <script src="~/Content/js/owl.carousel.min.js"></script>
+    <script src="~/Content/js/main.js"></script>
+</body>
+
+</html>
+
+
+

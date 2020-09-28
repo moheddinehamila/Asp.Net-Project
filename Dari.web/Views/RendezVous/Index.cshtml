@@ -1,0 +1,361 @@
+﻿@model Dari.Domain.RendezVous
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<!-- template from http://getbootstrap.com/getting-started -->
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>FullCalendarDari</title>
+
+    <!-- CSS Includes -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.0.1/fullcalendar.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/qtip2/3.0.3/basic/jquery.qtip.css" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/qtip2/3.0.3/jquery.qtip.min.css" />
+
+    <style type="text/css">
+        .field-validation-error {
+            color: #ff0000;
+        }
+    </style>
+</head>
+
+<body>
+
+
+
+    <div class="container">
+        <div id='calendar'></div>
+    </div>
+
+
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title"><span id="title"></span></h4>
+                </div>
+                <div class="modal-body">
+                    <button id="btnDelete" class="btn btn-default btn-sm pull-right">
+                        <span class="glyphicon glyphicon-remove">Remove</span>
+                    </button>
+                    <button id="btnEdit" class="btn btn-default btn-sm pull-right" style="margin-right:5px;">
+                        <span class="glyphicon glyphicon-pencil">Edit</span>
+                    </button>
+                    <p id="pDetails"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <div id="updateevent" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title"><span id="title"></span></h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <input type="hidden" id="hdEventID" value="0" />
+                        <div class="form-group">
+                            <label>Subject</label>
+                            <input type="text" id="txtSubject" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label>Start</label>
+                            <div class="input-group date" id="dtp1">
+                                <input type="text" id="txtStart" class="form-control" />
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>End</label>
+                            <div class="input-group date" id="dtp2">
+                                <input type="text" id="txtEnd" class="form-control" />
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Description</label>
+                            <textarea id="txtDescription" rows="3" class="form-control"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Theme Color</label>
+                            <select id="ddThemeColor" class="form-control">
+                                <option value="">Default</option>
+                                <option value="red">Red</option>
+                                <option value="blue">Blue</option>
+                                <option value="black">Black</option>
+                                <option value="green">Green</option>
+                            </select>
+                        </div>
+
+                        <button type="button" id="btnSave" class="btn btn-success">Save</button>
+
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JS includes -->
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+    <script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+    <script src="//ajax.aspnetcdn.com/ajax/mvc/4.0/jquery.validate.unobtrusive.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.16.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.0.1/fullcalendar.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qtip2/3.0.3/basic/jquery.qtip.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/qtip2/3.0.3/jquery.qtip.min.js"></script>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            var selectevent = null;
+            $('#calendar').fullCalendar({
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month,agendaWeek,agendaDay'
+                },
+                //get le calendrier from ApiCalendar  GetCalendarData
+                events: '@Url.RouteUrl(new { action = "GetCalendarData", controller = "RendezVous" })',
+                eventClick: function (calEvent, jsEvent, view) {//le click sur l'evenement va t'ouvrir un affichage qui contien plus de détails
+                    selectevent = calEvent;//l'evenement que tu as selectionner
+                    //fonction pour voir les details de l'evenements
+                    //et pour utiliser les fonction remove ou edit
+                    $('#myModal #title').text(calEvent.title);
+                    var $description = $('<div/>');
+                    $description.append($('<p/>').html('<b>Start:</b>' + calEvent.start.format("MMM-DD-YYYY HH:mm:ss")));
+                    $description.append($('<p/>').html('<b>End:</b>' + calEvent.end.format("MMM-DD-YYYY HH:mm:ss")));
+                    $description.append($('<p/>').html('<b>Description:</b>' + calEvent.description));
+                    $('#myModal #pDetails').empty().html($description);
+
+                    $('#myModal').modal();
+                },
+
+                //pour qu'on peut selectionné dans le calendrier
+                //et ajouter un evenement avec le drag and drop
+                //
+                selectable: true,
+                //fonction predefinie dans fullcanlendar pour la selection de datestart en dateend
+                select: function (start, end) {
+                    selectevent = {
+                        eventID: 0,
+                        title: '',
+                        description: '',
+                        start: start,
+                        end: end,
+                        allDay: false,
+                        color: ''
+                    };
+                    //maintenant on fait un appel de la form pour completre l'ajout
+                    openAddEditForm();
+                    $('#calendar').fullCalendar('unselect');
+                },
+
+                editable: true,
+                eventDrop: function (event) {
+                    var data = {
+                        id: event.eventID,
+                        title: event.title,
+                        start: event.start.format('MM/DD/YYYY HH:mm:ss'),
+                        end: event.end.format('MM/DD/YYYY HH:mm:ss'),
+                        description: event.description,
+                        color: event.color
+
+                    };
+
+                },
+                eventRender: function (event, element) {
+                    element.qtip({
+                        content: {
+                            title: { text: event.title },
+                        },
+                        show: { solo: true },
+                        hide: { when: 'inactive', delay: 3000 },
+                        style: {
+                            width: 200,
+                            padding: 5,
+                            color: 'black',
+                            textAlign: 'left',
+                            border: {
+                                width: 1,
+                                radius: 3
+                            },
+                            tip: 'topLeft',
+
+                            classes: {
+                                tooltip: 'ui-widget',
+                                tip: 'ui-widget',
+                                title: 'ui-widget-header',
+                                content: 'ui-widget-content'
+                            }
+                        }
+                    });
+                },
+
+            });
+
+
+
+            //le bouton delete
+            $('#btnDelete').click(function () {
+                if (selectevent != null && confirm('Are You Sure')) {
+                    $('#calendar').fullCalendar('removeEvents', selectevent.id);//jquery pour la supression de calendreier(affichage)
+                    $.ajax({//suppression de la baase en utilisants JS
+                        url: "/RendezVous/DeleteEvent/",
+                        dataType: "json",
+                        cache: false,
+                        type: 'POST',
+                        data: { 'id':selectevent.id },
+
+                    });
+                    $('#myModal').modal('hide');
+                }
+            })
+
+
+            //le bouton edite qui fait invoquer la forme addEditform
+            $('#btnEdit').click(function () {
+                //Open modal dialog for edit event
+                openAddEditForm();
+            })
+
+
+            //la form de dialog pour l'ajout et l'update le forme a comme id updateevent
+            function openAddEditForm() {
+                if (selectevent != null) {
+                    $('#hdEventID').val(selectevent.id);
+                    $('#txtSubject').val(selectevent.title);
+                    $('#txtStart').val(selectevent.start.format('MM/DD/YYYY HH:mm:ss'));
+                    $('#txtEnd').val(selectevent.end.format('MM/DD/YYYY HH:mm:ss'));
+                    $('#txtDescription').val(selectevent.description);
+                    $('#ddThemeColor').val(selectevent.color);
+                }
+
+                $('#myModal').modal('hide')
+                $('#updateevent').modal();
+            }
+
+            //fonction pour l'utilisation de la bouton datetimepicker
+            //au niveau de l'ajout et l'update de la startdate and enddate
+               $('#dtp1,#dtp2').datetimepicker({
+                format: 'MM/DD/YYYY HH:mm:ss'
+            });
+
+            //le bouton save qui va invoquer soit la fonction update
+            //ou la fonction add en utilisant une condition sur l'id
+            //si l'id est null dans la selection alors en utilise saveEvent
+            //sinon l'id n'est pas null en va utilisée la fonction update
+                $('#btnSave').click(function () {
+                    //var data
+                    //Prendre les Valeurs depuis le dialogue
+                    var data = {
+                        id: $('#hdEventID').val(),
+                        title: $('#txtSubject').val(),
+                        start: $('#txtStart').val(),
+                        end: $('#txtEnd').val(),
+                        description: $('#txtDescription').val(),
+                        color: $('#ddThemeColor').val(),
+
+                    }
+                    if (selectevent.id != null) {
+                       // call function to save data on DB
+                        updateEvent(data);
+                    } else {
+
+                    saveEvent(data);
+                    }
+
+                })
+
+
+
+            //fonction pour l'update
+            function updateEvent(data) {
+                $.ajax({
+                    url: "/RendezVous/UpdateEvent/",
+                    dataType: "json",
+                    type: 'POST',
+                    data: data,
+                    success: function (data) {
+                        if (data.status) {
+                            //Refresh the calender
+
+                            $('#calendar').fullCalendar('refetchEvents');
+                            //utilise le jquery de fullcaledar
+                            //pour raffichir
+                            $('#updateevent').modal('hide');
+                        }
+                    },
+                    error: function () {
+                        alert('Failed');
+                    }
+                })
+
+            }
+
+
+            //fonction save pour l'ajout
+            function saveEvent(data) {
+                {
+                    $.ajax({
+                        url: "/RendezVous/AddEvent/",
+                        dataType: "json",
+                        type: 'POST',
+                        data: data,
+                        success: function (data) {
+                            if (data.status) {
+                                //Refresh the calender
+                                //utilise le jquery de fullcaledar
+                                //pour raffichir
+                                $('#calendar').fullCalendar('refetchEvents');
+                                $('#updateevent').modal('hide');
+                                alert('succeeed');
+                            }
+                        },
+                        error: function () {
+                            alert('Failed');
+                        }
+                    })
+
+
+                }
+
+            }
+
+        });
+
+    </script>
+
+</body>
+</html>

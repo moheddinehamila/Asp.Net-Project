@@ -1,0 +1,171 @@
+﻿@model Dari.web.Models.RequestViewModel
+
+@{
+    ViewBag.Title = "Create";
+
+}
+@section scripts{
+
+
+<section class="hero-section">
+    <div class="hero-items owl-carousel">
+
+        @foreach (var reco in ViewBag.val)
+        {
+            string path = "../Content/upload/" + @reco.Image;
+
+            <div class="single-hero-item set-bg" data-setbg="@Url.Content(path)">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-8 offset-lg-2">
+                            <div class="hero-text">
+                                <h2>Recommendation For You</h2>
+                                <h4 style="color:#fff">Your Request : @reco.Title</h4>
+                                <div class="room-price">
+                                    <span>Your Budget :</span>
+                                    <p>$ @reco.Budget</p>
+                                </div>
+
+                                <h4 style="color:#FFF">Property Name : @reco.Name</h4>
+                                <p class="room-location"><i class="icon_pin"></i> @reco.Adress</p>
+                                <div class="room-price">
+                                    <span>Price Start From:</span>
+                                    <p>$ @reco.Price</p>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+    <div class="thumbnail-pic">
+        <div class="thumbs owl-carousel">
+            @foreach (var reco in ViewBag.val)
+            {
+
+
+
+                <div class="item">
+                    @{ string path = "../Content/upload/" + @reco.Image;
+                    }
+                    <img src="@Url.Content(path)" alt="">
+                </div>
+
+
+                        }
+        </div>
+    </div>
+</section>
+<!-- Hero Section End -->
+<br /><br /><br />
+@using (Html.BeginForm())
+    {
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Create New Request</h4>
+        <hr />
+        <br /><br />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger " })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2 " })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+            @Html.LabelFor(model => model.Budget, "Budget(DT)", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Budget, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Budget, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+            @Html.LabelFor(model => model.TypeCh, "BUY/RENT", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EnumDropDownListFor(model => model.TypeCh, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TypeCh, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+            @Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EnumDropDownListFor(model => model.Type, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+            @Html.LabelFor(model => model.Area, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Area, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Area, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <br />
+
+        <div class="form-group">
+            @Html.LabelFor(x => Model.SelectedCountryIso3, "Governorate", htmlAttributes: new { @class = "control-label col-md-2" })
+
+            <div class="col-md-5">
+                @Html.DropDownListFor(x => Model.SelectedCountryIso3, new SelectList(Model.Countries, "Value", "Text"), htmlAttributes: new { @class = "form-control", id = "Country" })
+                @Html.ValidationMessageFor(x => x.SelectedCountryIso3, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+            @Html.LabelFor(x => Model.SelectedRegionCode, "Delegation", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-5">
+                @Html.DropDownListFor(x => Model.SelectedRegionCode, new SelectList(Model.Regions, "Value", "Text"), htmlAttributes: new { @class = "form-control", @id = "Region" })
+                @Html.ValidationMessageFor(x => x.SelectedRegionCode, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <br />
+        <div class="form-group">
+            @Html.LabelFor(model => model.Phone, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <br />     <br /> <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input class="btn btn-primary btn-lg" type="button" title="Index" value="Back to The List" onclick="location.href='@Url.Action("Index", "Request")'" />
+
+                <input type="submit" value="Create" class="btn btn-primary btn-lg" />
+
+            </div>
+
+        </div>
+    </div>
+}
+<br /><br /><br />
+
+
+
+
+
+
+}
+
+
+

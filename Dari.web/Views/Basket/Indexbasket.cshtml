@@ -1,0 +1,91 @@
+﻿
+@model IEnumerable<Dari.Domain.Basket>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section scripts{
+  
+<h2>Your Basket</h2>
+
+ @{double i=0;}
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.furniture.Image)
+        </th>  
+        <th>
+            @Html.DisplayNameFor(model => model.furniture.Name)
+        </th>  
+        <th>
+            @Html.DisplayNameFor(model => model.furniture.Price)
+        </th>  
+        <th>
+            @Html.DisplayNameFor(model => model.Qte)
+        </th>
+        <th>
+            Total Price
+        </th>
+        <th></th>
+    </tr>
+
+@if (Model != null)
+{
+    foreach (var item in Model)
+    {
+    <tr>
+        <td> 
+               <div class="property-pic">
+                    <img width="70" height="70" src="~/Content/upload/furniture/@Html.DisplayFor(modelItem => item.furniture.Image)" alt="">
+               </div> 
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.furniture.Name)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.furniture.Price) DT
+        </td>
+
+        <td>
+            <ul>
+                <li>
+                    <a href="~/Basket/Addqte/@Html.DisplayFor(modelItem => item.BasketId)">
+                       <i class="fa fa-angle-up"></i> 
+                    </a>
+                </li>
+                <li>
+                    @Html.DisplayFor(modelItem => item.Qte)
+                </li>
+                <li>
+                    <a href="~/Basket/SubstractQte/@Html.DisplayFor(modelItem => item.BasketId)">
+                        <i class="fa fa-angle-down"></i> 
+                    </a>
+                </li>
+            </ul>
+        </td>
+        <td>   
+        @Html.DisplayFor(modelItem => item.TotalPrice) DT
+        </td>
+         <td>
+             <h1>
+                 <a href="~/Basket/Delete/@Html.DisplayFor(modelItem => item.BasketId)">
+                     <i class="fa fa-trash-o"></i>
+                 </a>
+             </h1>
+         </td>
+
+    </tr>
+
+     {i = i + item.TotalPrice;}
+            }
+        }
+ <tr>
+     <td></td><td></td><td></td><td></td><td><h5>Final price: @i </h5></td>
+</tr>
+
+</table>
+   <a href="~/Basket/Order">Continue</a>
+    } 

@@ -1,0 +1,230 @@
+﻿@model IEnumerable<Dari.Domain.Request>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@section scripts{
+
+
+
+
+@if (@ViewData["passenger"].ToString() == "0")
+    {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+           <!-- Hero Section Begin -->
+    <section class="hero-section">
+        <div class="hero-items owl-carousel">
+
+            @foreach (var reco in ViewBag.val)
+            {
+                string path = "../Content/upload/" + @reco.Image;
+
+                <div class="single-hero-item set-bg" data-setbg="@Url.Content(path)">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-8 offset-lg-2">
+                                <div class="hero-text">
+                                    <h2>Recommendation For You</h2>
+                                    <h4 style="color:#fff">Your Request : @reco.Title</h4>
+                                    <div class="room-price">
+                                        <span>Your Budget :</span>
+                                        <p>$ @reco.Budget</p>
+                                    </div>
+
+                                    <h4 style="color:#FFF">Property Name : @reco.Name</h4>
+                                    <p class="room-location"><i class="icon_pin"></i> @reco.Adress</p>
+                                    <div class="room-price">
+                                        <span>Price Start From:</span>
+                                        <p>$ @reco.Price</p>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+        <div class="thumbnail-pic">
+            <div class="thumbs owl-carousel">
+                @foreach (var reco in ViewBag.val)
+                {
+
+
+
+                    <div class="item">
+                        @{ string path = "../Content/upload/" + @reco.Image;
+                        }
+                        <img src="@Url.Content(path)" alt="">
+                    </div>
+
+
+                            }
+            </div>
+        </div>
+    </section>
+    <!-- Hero Section End -->
+
+
+                              <!-- Hero Section Begin -->
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Property Section Begin -->
+                            <section class="property-section spad">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="property-sidebar">
+                                                <h4>Search Property</h4>
+                                                @using (Html.BeginForm())
+                                                {
+                                                    <form action="#" class="sidebar-search">
+
+
+                                                        <div class="sidebar-btn">
+                                                            <div class="bt-item">
+                                                                <input type="radio" name="s-type" value="C" id="st-all" checked>
+                                                                <label for="st-all">All</label>
+                                                            </div>
+                                                            <div class="bt-item">
+                                                                <input type="radio" name="s-type" value="A" id="st-buy">
+                                                                <label for="st-buy">Buy</label>
+                                                            </div>
+                                                            <div class="bt-item">
+                                                                <input type="radio" name="s-type" value="B" id="st-rent">
+                                                                <label for="st-rent">Rent</label>
+                                                            </div>
+                                                        </div>
+
+
+                                                        <center>
+                                                            <h5>Title</h5>  @Html.TextBox("searchstring", null, new { @class = "form-control" })
+
+                                                            <h5>Min</h5> @Html.TextBox("min", null, new { @class = "form-control" })
+                                                            <h5>Max</h5> @Html.TextBox("max", null, new { @class = "form-control" })
+                                                        </center>
+                                                        <br />
+                                                        <input class="btn btn-primary btn-block btn-lg" size="20" type="submit" value="Search" id="submit" />
+                                                    </form>
+                                                }
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <div align="left">
+                                                <h4 class="property-title">Requests</h4>
+                                            </div>
+
+
+
+                                            <div align="right">
+                                                <input class="btn btn-primary btn-lg" type="button" title="Index" value="Create New Request" onclick="location.href='@Url.Action("Create", "Request")'" />
+                                            </div>
+
+                                            <br /><br />
+
+                                            <div class="property-list">
+                                                @foreach (var item in Model)
+                                                {
+
+                                                    <div class="single-property-item">
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <div class="property-pic">
+                                                                    @{ string path = "../Content/upload/" + @item.Image; }
+                                                                    <img src="@Url.Content(path)" width="100" height="100 " />
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-8">
+                                                                <div class="property-text">
+                                                                    <div class="s-text">@Html.DisplayFor(modelItem => item.TypeCh)</div>
+                                                                    @if (@Html.DisplayFor(modelItem => item.UserId).ToString() == @ViewData["user"].ToString())
+                                                                    {
+                                                                        <h6 class="glyphicon glyphicon-ok text-info"></h6>  <h7 class="text-info">My Request</h7>
+
+
+                                                                    }
+                                                                      <h5 class="r-title">@Html.DisplayFor(modelItem => item.Title)</h5>
+                                                                    <div class="room-price">
+                                                                        <span>My Budget:</span>
+                                                                        <h5>@Html.DisplayFor(modelItem => item.Budget) (DT)</h5>
+                                                                    </div>
+                                                                    <div class="properties-location">
+                                                                        <i class="icon_pin"></i> @Html.DisplayFor(modelItem => item.CountryIso3) :
+                                                                        @Html.DisplayFor(modelItem => item.RegionCode)
+
+
+                                                                    </div>
+                                                                    <p>
+                                                                        @Html.DisplayFor(modelItem => item.Description)
+                                                                    </p>
+                                                                    <ul class="room-features">
+                                                                        <li>
+                                                                            <i class="fa fa-arrows"></i>
+                                                                            <p>@Html.DisplayFor(modelItem => item.Area) (Metre)</p>
+                                                                        </li>
+                                                                        <li>
+                                                                            <i class="fa fa-bed"></i>
+                                                                            <p>@Html.DisplayFor(modelItem => item.Type)</p>
+                                                                        </li>
+                                                                        <li>
+                                                                            <i class="fa fa-clock-o"></i>
+                                                                            <p>@Html.DisplayFor(modelItem => item.Date)</p>
+                                                                        </li>
+                                                                        <li>
+                                                                            <i class="fa fa-phone"></i>
+                                                                            <p>@Html.ActionLink("Get My Phone", "Details", new { id = item.RequestId })</p>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                                        }
+
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                                                                        }
+
+                                                                        else
+                                                                        {
+                                                                            <p> Creaaaate Accouuuuuuuuuuuuunt</p>
+                                                                        }
+
+<!-- Property Section End -->
+
+
+}

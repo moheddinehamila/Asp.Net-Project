@@ -1,0 +1,176 @@
+﻿@model Dari.Domain.AnnonceVente
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section scripts{
+
+    <h2>Create</h2>
+
+
+    @using (Html.BeginForm("Create", "Vente", FormMethod.Post, new { enctype = "multipart/form-data" }))
+
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>For sale</h4>
+            <hr />
+
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Category, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <select id="Categ" name="Categ">
+                        <option value="" disabled selected>Select an option</option>
+                        <option value="Appartement">Appartement</option>
+                        <option value="Villa">Villa</option>
+                        <option value="Building">building</option>
+                        <option value="Duplex">Duplex</option>
+                        <option value="Garage">Garage</option>
+                        <option value="Ground">Ground</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+            </div>
+            <br />
+            <br />
+
+
+
+            @*<div class="form-group">
+                @Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <select id="Souscateg" name="Souscateg">
+                        <option value="" disabled selected>Select an option</option>
+
+                        <option value="Sofas">Sofas</option>
+                        <option value="LivingroomTables&chairs">LivingroomTables&chairs</option>
+                        <option value="TVs">TVs</option>
+                        <option value="LivingroomStorage">LivingroomStorage</option>
+                        <option value="LivingroomDecor">LivingroomDecor</option>
+
+                        <option value="Beds">Beds</option>
+                        <option value="Matresses">Matresses</option>
+                        <option value="BedRoomDecor">Decor</option>
+                        <option value="BedRoomStorage">BedRoomStorage</option>
+                        <option value="BedRoomAccessories">BedRoomAccessories</option>
+
+                        <option value="DiningTables&chairs">DiningTables&chairs</option>
+                        <option value="DiningStorage">DiningStorage</option>
+                        <option value="DiningDecor">DiningDecor</option>
+
+                        <option value="BathRoomFurniture">BathRoomFurniture</option>
+                        <option value="BathRoomAccessories">BathRoomAccessories</option>
+
+                        <option value="KitchenTables&chairs">KitchenTables&chairs</option>
+                        <option value="Kitchenappliance">Kitchenappliance</option>
+                        <option value="KitchenEquippement">KitchenEquippement</option>
+
+                        <option value="Garden">Garden</option>
+                        <option value="Garage">Garage</option>
+                    </select>
+
+
+                </div>
+            </div>
+            <br />
+            <br />*@
+
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Adress, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Adress, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Adress, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    Upload a file
+                    @Html.TextBox("Image", "", new { type = "file" })
+                    @Html.ValidationMessageFor(model => model.Image)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Height, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Height, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Height, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Width, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Width, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Width, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Depth, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Depth, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Depth, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </div>
+            
+
+            @*<select id="options">
+                    <option value="" disabled selected>Select an option</option>
+                    <option value="Option 1">Option 1</option>
+                    <option value="Option 2">Option 2</option>
+                    <option value="Option 3">Option 3</option>
+                </select>
+
+                <select id="choices">
+                    <option value="" disabled selected>Please select an option</option>
+                </select>
+            *@
+
+        </div>
+
+
+
+        <div>
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }}

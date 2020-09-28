@@ -1,0 +1,164 @@
+﻿@model IEnumerable<Microsoft.AspNet.Identity.EntityFramework.IdentityRole>
+
+@{
+    ViewBag.Title = "CreateRoles";
+    Layout = "~/Views/Shared/_Layout3.cshtml";
+}
+@section Scripts {
+
+
+<section class="content-header">
+    <h1>
+        Roles
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Roles</li>
+    </ol>
+</section>
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Manage Roles</h3>
+                </div>
+                <!-- /.box-header -->
+                <a class="btn btn-success" style="margin-bottom:10px" onclick="PopupForm('@Url.Action("CreateRoles","Admin")')"><i class="fa fa-plus"></i> Add New</a>
+
+                <div class="box-body">
+                    <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Name</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@Html.DisplayFor(modelItem =>item.Id)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                                  
+                                <td><a class='btn btn-default btn-sm' onclick="PopupForm('@Url.Action("AddUserToRole","Admin",new { roleName = @item.Name })')">Add User To Role</a> | <a class='btn btn-default btn-sm' onclick="Delete('@item.Name')">Delete</a></td>
+                                </tr>
+                            }
+                    </table>
+                    <link href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+                  <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" rel="stylesheet" />
+                    <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.theme.min.css" rel="stylesheet" />
+
+                </div>
+            </div>
+            <!-- /.box -->
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+   
+    <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.min.js"></script>
+</section>
+<style>
+   
+
+
+    </style>
+<!-- DataTables -->
+
+
+<!-- page script -->
+    <script type="text/javascript" > 
+        
+        
+        var Popup, dataTable;
+        function PopupForm(url) {
+        var formDiv = $('<div/>');
+        $.get(url) .done(function (response) {
+                formDiv.html(response)
+
+                Popup = formDiv.dialog({
+                    autoOpen: true,
+                    resizable: true,
+                    title: 'Add New',
+                    height: 300,
+                    width: 400,
+
+                    close: function () {
+                        Popup.dialog('destroy').remove();
+                    }
+
+                });
+            });
+    }
+
+    function SubmitForm(form) {
+        $.validator.unobtrusive.parse(form);
+        if ($(form).valid());
+
+    {
+        $.ajax({
+                    type: "POST",
+                    url: form.action,
+                    data: $(form).serialize(),
+                    success: function (data) {
+                        if (data.success) {
+                            Popup.dialog('close');
+
+                            $.notify(data.message, {
+                                globalPosition: "top center",
+                                className: "success"
+                            }
+                            )
+                            window.location.reload();
+
+                        }
+                    }
+
+
+        });
+
+        }
+
+
+    return false;
+    }
+
+    dataTable = $("#example1").DataTable({
+
+    });
+    function Delete(Name) {
+        var txt;
+        var r = confirm("Are you sure you want to Delete?");
+        if (r == true) {
+
+            $.ajax(
+            {
+                type: "POST",
+                url: '@Url.Action("Delete", "Admin")',
+                data: {
+                    Name: Name
+                },
+                error: function (result) {
+                    alert("error");
+                },
+                success: function (result) {
+                    if (result == true) {
+                        var baseUrl = "/Admin/GetRoles";
+                        window.location.reload();
+                    }
+                    else {
+                        alert("There is a problem, Try Later!");
+                    }
+                }
+            });
+        }
+    }
+    </script >
+    }

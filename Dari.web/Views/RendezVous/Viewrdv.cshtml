@@ -1,0 +1,169 @@
+﻿@using Microsoft.AspNet.Identity; 
+@model Dari.Domain.RendezVous
+@{
+    ViewBag.Title = "Viewrdv";
+}
+@section scripts{
+    
+    <br>
+    <br>
+<div class="containner">
+    <div id='calendar'></div>
+</div>
+<br>
+<br>
+
+    <!-- le detail de rendez vous 
+        +edit+remove
+        -->
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"><span id="title"></span></h4>
+            </div>
+            <div class="modal-body">
+                <button id="btnDelete" class="btn btn-default btn-sm pull-right">
+                    <span class="glyphicon glyphicon-remove">Remove</span>
+                </button>
+                <button id="btnEdit" class="btn btn-default btn-sm pull-right" style="margin-right:5px;">
+                    <span class="glyphicon glyphicon-pencil">Edit</span>
+                </button>
+                <p id="pDetails"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+@if ((User.Identity.IsAuthenticated) && (User.IsInRole("Client")))
+{
+    <!-- le modele d'ajout pour le buyer("acheteur") ou le Client
+    la valeur par defaut du couleur va etre orange
+     -->
+    <div id="updateevent" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title"><span id="title"></span></h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <input type="hidden" id="hdEventID" value="0" />
+                        <div class="form-group">
+                            <label>Subject</label>
+                            <input type="text" id="txtSubject" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label>Start</label>
+                            <div class="input-group date" id="dtp1">
+                                <input type="text" id="txtStart" class="form-control" />
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>End</label>
+                            <div class="input-group date" id="dtp2">
+                                <input type="text" id="txtEnd" class="form-control" />
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Description</label>
+                            <textarea id="txtDescription" rows="3" class="form-control"></textarea>
+                        </div>
+                        <button type="button" id="btnSave" class="btn btn-success">Save</button>
+
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+else
+{
+
+<!-- le modele d'ajout pour le seller("vendeur") ou le Owner
+    les valeur de couleur est red  green orange
+     -->
+    <div id="updateevent" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Complete Form</h3>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title"><span id="title"></span></h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <input type="hidden" id="hdEventID" value="0" />
+                        <div class="form-group">
+                            <label>Subject</label>
+                            <input type="text" id="txtSubject" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label>Start</label>
+                            <div class="input-group date" id="dtp1">
+                                <input type="text" id="txtStart" class="form-control" />
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>End</label>
+                            <div class="input-group date" id="dtp2">
+                                <input type="text" id="txtEnd" class="form-control" />
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Description</label>
+                            <textarea id="txtDescription" rows="3" class="form-control"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>the Apponitment state</label>
+                            <select id="ddThemeColor" class="form-control">
+                                <option value="orange">waiting appointment</option>
+                                <option value="red">Ignore appointment</option>
+                                <option value="green">Accept appointment</option>
+                            </select>
+                        </div>
+
+                        <button type="button" id="btnSaveseller" class="btn btn-success">Save</button>
+
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+
+    }

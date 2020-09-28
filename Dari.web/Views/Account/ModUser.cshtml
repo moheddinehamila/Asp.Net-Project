@@ -1,0 +1,125 @@
+﻿@model Dari.web.Models.ApplicationUser
+
+@{
+    ViewBag.Title = "ModUser";
+    Layout = "~/Views/Shared/Layout2.cshtml";
+}
+
+@section scripts{
+
+<h2>ModUser</h2>
+
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "signupform" }))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>ApplicationUser</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+      
+        <div class="form-group">
+            @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Country, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Country, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Country, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" id="savebtn" 
+                        />
+            </div>
+        </div>
+    </div>
+}
+   
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.min.js" ></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.10/jquery.validate.unobtrusive.min.js"></script>
+
+<script>
+    $("#signupform").submit(function(e) {
+
+
+        var form = $(this);
+        var url = form.attr('action');
+        $.validator.unobtrusive.parse(form);
+        if($(form).valid()){
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: form.serialize(), // serializes the form's elements.
+                success: function(data)
+                {
+                    if (data.success = "true") {
+
+                        $.notify(data.message, {
+                            globalPosition: "top center",
+                            className: "success"
+
+                            
+                        })
+                        
+
+
+                    }
+                }
+                
+
+
+            });
+            
+            e.preventDefault();
+        }
+        return false;
+    })
+
+        
+    
+       
+
+       
+ 
+    </script>
+    }
+
+@Scripts.Render("~/bundles/jqueryval")
+}
+

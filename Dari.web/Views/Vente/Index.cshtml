@@ -1,0 +1,157 @@
+﻿@model IEnumerable<Dari.Domain.AnnonceVente>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section scripts{ 
+ 
+
+<h2>Index</h2>
+ 
+<button class="m-b-107" >
+
+    @Html.ActionLink("Create New", "Create")
+</button>
+    <br />
+<br />
+
+
+@using (Html.BeginForm())
+{
+    <table>
+        <tr>
+            <td>
+                <div>
+                    Recherche : @Html.TextBox("rech")
+                </div>
+
+<h2>Index</h2>
+ 
+<button class="m-b-107" >
+
+    @Html.ActionLink("Create New", "Create")
+</button>
+    <br />
+<br />
+
+
+@using (Html.BeginForm())
+{
+    <table>
+        <tr>
+            <td>
+                <div>
+                    Recherche : @Html.TextBox("rech")
+                </div>
+
+<h2>Index</h2>
+ 
+<button class="m-b-107" >
+
+    @Html.ActionLink("Create New", "Create")
+</button>
+    <br />
+<br />
+
+
+@using (Html.BeginForm())
+{
+    <table>
+        <tr>
+            <td>
+                <div>
+                    Recherche : @Html.TextBox("rech")
+                </div>
+            </td>
+            <td> <input type="submit" value="Search" id="submit" /> </td>
+        </tr>
+    </table>
+    <br />
+
+
+    @*<div class="row" style="align-items">
+
+        <div class="col-md-2" id="filterdiv">
+            <h1>filter</h1>  <br />
+
+         
+
+    
+        <div class="col-md-10">
+            @if (Model != null)
+            {
+                foreach (var item in Model)
+                {
+                    <div class="single-property-item">
+                        <div class="row" style="align-content:center">
+
+                            <div class="col-md-2">
+                                <div class="property-pic">
+                                    <img src="~/Content/upload/Vente/@Html.DisplayFor(modelItem => item.Image)" alt="">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="property-text">
+                                    <div class="s-text">For sale</div>
+                                    <h5 class="r-title">@Html.DisplayFor(modelItem => item.Name) </h5>
+                                    <div class="room-price">
+                                        <h5>@Html.DisplayFor(modelItem => item.Price) DT</h5>
+                                    </div>
+                                    <div class="properties-location">
+                                        <i class="icon_pin"></i> @Html.DisplayFor(modelItem => item.Adress)
+                                    </div>
+                                    <p>
+                                        @Html.DisplayFor(modelItem => item.Description)
+                                    </p>
+                                    <table>
+                                        <colgroup width="100px" />
+                                        <colgroup width="100px" />
+                                        <colgroup width="100px" />
+                                        <tr>
+                                            <td>
+                                                <i class="fa fa-arrows"></i>
+                                                <p>@Html.DisplayFor(modelItem => item.Height)</p>
+                                            </td>
+                                            <td>
+                                                <i class="fa fa-arrows-v"></i>
+                                                <p>@Html.DisplayFor(modelItem => item.Depth)</p>
+                                            </td>
+                                            <td>
+                                                <i class="fa fa-arrows-h"></i>
+                                                <p>@Html.DisplayFor(modelItem => item.Width)</p>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div class="col-md-1">
+                                
+                                <h1>
+                                    <a href="~/Vente/Edit/@Html.DisplayFor(modelItem => item.VenteId)">
+                                        <i class="fa fa-edit"></i>
+                                    </a>
+                                </h1>
+
+                                <h1>
+                                    <a href="~/Vente/Delete/@Html.DisplayFor(modelItem => item.VenteId)">
+                                        <i class="fa fa-trash-o"></i>
+                                    </a>
+                                </h1>
+
+
+                            </div>
+
+                        </div>
+                        <hr />
+                    </div>
+                }
+            }
+
+        </div>
+}    </div>
+
+}  
+
+    }

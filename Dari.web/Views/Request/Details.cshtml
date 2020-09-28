@@ -1,0 +1,238 @@
+﻿@model IEnumerable<Dari.Domain.Request>
+
+@{
+    ViewBag.Title = "Details";
+}
+@section scripts{
+
+<!-- Blog Details Hero Section Begin -->
+<!-- Property Details Hero Section Begin -->
+<section class="pd-hero-section set-bg" data-setbg="/Content/img/properties/product-content-bg.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2">
+                <div class="pd-hero-text">
+                    <p class="room-location">
+                        <i class="icon_pin"></i> @(((Dari.Domain.Request)ViewData["requestsid"]).CountryIso3) :
+                        @(((Dari.Domain.Request)ViewData["requestsid"]).RegionCode)
+                    </p>
+                    <h2>@(((Dari.Domain.Request)ViewData["requestsid"]).Title)</h2>
+                    <div class="room-price">
+                        <span>My Budget :</span>
+                        <p>@(((Dari.Domain.Request)ViewData["requestsid"]).Budget) (DT)</p>
+                    </div>
+                    <ul class="room-features">
+                        <li>
+                            <i class="fa fa-arrows"></i>
+                            <p>@(((Dari.Domain.Request)ViewData["requestsid"]).Area) (Metre)</p>
+                        </li>
+                        <li>
+                            <i class="fa fa-bed"></i>
+                            <p>@(((Dari.Domain.Request)ViewData["requestsid"]).Type)</p>
+                        </li>
+                        <li>
+                            <i class="fa fa-clock-o"></i>
+                            <p>@(((Dari.Domain.Request)ViewData["requestsid"]).Date)</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Property Details Hero Section Begin -->
+<!-- Property Details Section Begin -->
+<section class="property-details-section spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="pd-details-text">
+               
+
+
+
+                    <div class="pd-desc">
+
+                        <h4>Description</h4>
+                        <p>
+                            @(((Dari.Domain.Request)ViewData["requestsid"]).Description)
+                        </p>
+                    </div>
+                    <div class="pd-details-tab">
+                        <div class="tab-item">
+                            <ul class="nav" role="tablist">
+                                <li>
+                                    <a class="active" data-toggle="tab" href="#tab-1" role="tab">Overview</a>
+                                </li>
+                                <li>
+                                    <a data-toggle="tab" href="#tab-2" role="tab">Property Info</a>
+                                </li>
+                                <li>
+                                    <a data-toggle="tab" href="#tab-3" role="tab">Location</a>
+                                </li>
+                                <li>
+                                    <a data-toggle="tab" href="#tab-4" role="tab">Phone Number</a>
+                                </li>
+
+                            </ul>
+                        </div>
+                        <div class="tab-item-content">
+                            <div class="tab-content">
+                                <div class="tab-pane fade-in active" id="tab-1" role="tabpanel">
+                                    <div class="property-more-table">
+                                        <table class="left-table">
+                                            <tbody>
+                                                <tr>
+                                                    <td class="pt-name">Title</td>
+                                                    <td class="p-value">@(((Dari.Domain.Request)ViewData["requestsid"]).Title)</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="pt-name">My Budget</td>
+                                                    <td class="p-value">@(((Dari.Domain.Request)ViewData["requestsid"]).Budget) (DT)</td>
+                                                </tr>
+
+
+
+                                                <tr>
+                                                    <td class="pt-name">Added Date</td>
+                                                    <td class="p-value">@(((Dari.Domain.Request)ViewData["requestsid"]).Date)</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="tab-2" role="tabpanel">
+                                    <div class="pd-table-desc">
+                                        <div class="property-more-table">
+                                            <table class="left-table">
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="pt-name">Wanted</td>
+                                                        <td class="p-value">@(((Dari.Domain.Request)ViewData["requestsid"]).TypeCh)</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="pt-name">Type</td>
+                                                        <td class="p-value">@(((Dari.Domain.Request)ViewData["requestsid"]).Type)</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="pt-name">Area (Metre)</td>
+                                                        <td class="p-value">@(((Dari.Domain.Request)ViewData["requestsid"]).Area)</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="tab-3" role="tabpanel">
+                                    <div class="pd-table-desc">
+                                        <div class="property-more-table">
+                                            <table class="left-table">
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="pt-name">Governorat</td>
+                                                        <td class="p-value">@(((Dari.Domain.Request)ViewData["requestsid"]).CountryIso3)</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="pt-name">Delegation</td>
+                                                        <td class="p-value">@(((Dari.Domain.Request)ViewData["requestsid"]).RegionCode)</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="tab-4" role="tabpanel">
+                                    <div class="pd-table-desc">
+
+                                        <p>
+                                            @(((Dari.Domain.Request)ViewData["requestsid"]).Phone)
+                                        </p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div align="center">
+        <input class="btn btn-primary" type="button" title="Index" value="Back to List" onclick="location.href='@Url.Action("Index", "Request")'" />
+    @if(@ViewData["val"].ToString() == "1")
+    {
+            <input class="btn btn-primary" type="button" title="Edit" value="Edit" onclick="location.href='@Url.Action("Edit", "Request",new { id = (((Dari.Domain.Request)ViewData["requestsid"]).RequestId) })'" />
+
+        <input class="btn btn-primary" type="button" title="Delete" value="Delete" onclick="location.href='@Url.Action("Delete", "Request",new { id = (((Dari.Domain.Request)ViewData["requestsid"]).RequestId) })'" />
+    }
+       </div>
+
+</section>
+
+<!-- Partner Carousel Section End -->
+
+
+
+
+
+
+
+    <!-- Feature Section Begin -->
+<section class="feature-section spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-title">
+                    <span>You May Find Behind You</span>
+                    <h2> Wanted </h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="feature-carousel owl-carousel">
+@foreach (var item in Model)
+{
+
+                <div class="col-lg-4">
+                    <div class="feature-item">
+                        @{ string path = "/Content/upload/" + @item.Image; }
+                      
+                        <div class="fi-pic set-bg" data-setbg="@Url.Content(path)">
+                            <div class="pic-tag">
+                                <div class="f-text">feauture</div>
+                                <div class="s-text">@Html.DisplayFor(modelItem => item.TypeCh)</div>
+                            </div>
+                           
+                        </div>
+                        <div class="fi-text">
+                            <div class="inside-text">
+                                <h4>@Html.DisplayFor(modelItem => item.Title)</h4>
+                                <ul>
+                                    <li><i class="fa fa-map-marker"></i> @Html.DisplayFor(modelItem => item.CountryIso3) : @Html.DisplayFor(modelItem => item.RegionCode)</li>
+                                    <li><i class="fa fa-tag"></i> @Html.DisplayFor(modelItem => item.Date)</li>
+                                </ul>
+                                <h5 class="price">Budget :<span>@Html.DisplayFor(modelItem => item.Budget)</span></h5>
+                            </div>
+                            <ul class="room-features">
+                                <li>
+                                    <i class="fa fa-arrows"></i>
+                                    <p>@Html.DisplayFor(modelItem => item.Area) (Metre)</p>
+                                </li>
+                                <li>
+                                    <i class="fa fa-bed"></i>
+                                    <p>@Html.DisplayFor(modelItem => item.Type)</p>
+                                </li>
+                           
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+}
+
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Feature Section End -->
+}

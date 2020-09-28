@@ -1,0 +1,25 @@
+﻿@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+        @Html.AntiForgeryToken()
+
+        <div class="col ml--2">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h4 class="mb-0 text-sm">"Hello"+@Html.ActionLink(User.Identity.Name, "Manage", "Account", routeValues: null, htmlAttributes: new { @class = "username", title = "Manage" })!</h4>
+                </div>
+                <div class="text-right text-muted">
+                    <small>2 hrs ago</small>
+                </div>
+            </div>
+ 
+               </div>
+    }
+}
+            else {
+< ul class="nav navbar-nav navbar-right">
+<li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+<li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    </ul>
+}
+   

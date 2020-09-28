@@ -1,0 +1,153 @@
+﻿@model IEnumerable<Dari.Domain.Basket>
+
+@{
+    ViewBag.Title = "Order";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section scripts{
+    <h2>Order Confirmation</h2>
+
+@{ double pbefore = 0;}
+    <table>
+        <thead>
+            <tr>
+                <th>Product Name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null)
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="service">
+                            @Html.DisplayFor(modelItem => item.furniture.Name)
+                        </td>
+                        <td class="desc">
+                            @Html.DisplayFor(modelItem => item.furniture.description)
+
+                        </td>
+                        <td class="unit">
+                            @Html.DisplayFor(modelItem => item.furniture.Price) DT
+
+                        </td>
+                        <td class="qty">
+                            @Html.DisplayFor(modelItem => item.Qte) 
+                        </td>
+                        <td class="total">
+                         @Html.DisplayFor(modelItem => item.TotalPrice) DT
+                        </td>
+                    </tr>
+
+                    { pbefore = pbefore + item.TotalPrice; }
+                }
+            }
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td >
+<h6>Total: @pbefore Dt  </h6>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                                 
+                    Get a discount: <input type="text" id="myText" name="myText" />
+                               
+                <a id="link2" onclick="myFunction()" >
+                    <input type="button" value="Add coupon" />
+                                             
+                </a> 
+                                 
+                              
+                <br />
+                </td>
+                <td>@ViewData["used"]</td>
+                <td></td>
+                <td></td>
+                 
+                <td colspan="4"><h6>Discount: - @(int.Parse(ViewData["pourcentage"].ToString()) * pbefore / 100) DT</h6> </td>
+            </tr>
+
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td colspan="5"><h6>Final price: @(pbefore - (int.Parse(ViewData["pourcentage"].ToString()) * pbefore / 100)) DT</h6></td>
+            </tr>
+        </tbody>
+    </table>
+
+
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border-spacing: 0;
+            margin-bottom: 20px;
+        }
+
+            table tr:nth-child(2n-1) td {
+                background: #F5F5F5;
+            }
+
+            table th,
+            table td {
+                text-align: left;
+            }
+
+            table th {
+                padding: 5px 20px;
+                color: #5D6975;
+                border-bottom: 1px solid #C1CED9;
+                white-space: nowrap;
+                font-weight: normal;
+            }
+
+            table .service,
+            table .desc {
+                text-align: left;
+            }
+
+            table td {
+                padding: 20px;
+                text-align: left;
+            }
+
+                table td.service,
+                table td.desc {
+                    vertical-align: top;
+                }
+
+                table td.unit,
+                table td.qty,
+                table td.total {
+                    font-size: 1.2em;
+                }
+
+                table td.grand {
+                    border-top: 1px solid #5D6975;
+                }
+    </style>
+ 
+<script>
+function myFunction() {
+    var x = document.getElementById("myText").value;
+  
+    var strLink = "coupon/" + x;
+    document.getElementById("link2").setAttribute("href", strLink);
+}
+</script> 
+
+    <a href="~/Basket/Addbill/@(int.Parse(ViewData["pourcentage"].ToString()))" >
+        <input type="button" value="Confirm" />
+    </a>
+}

@@ -1,0 +1,174 @@
+﻿@model Dari.web.Models.DashboardViewModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout3.cshtml";
+}
+@section Scripts {
+
+<section class="content-header">
+    <h1>
+        Dashboard
+        <small>Control panel</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Dashboard</li>
+    </ol>
+</section>
+<!-- Main content -->
+<section class="content">
+    <!-- Small boxes (Stat box) -->
+    <div class="row">
+        <div class="col-lg-3 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-aqua">
+                <div class="inner">
+                    <h3>@Model.users_count</h3>
+                    <p>Users</p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-users"></i>
+                </div>
+                <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-green">
+                <div class="inner">
+                    <h3>@Model.consulors_count<sup style="font-size: 20px"></sup></h3>
+                    <p>Consulors</p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-users"></i>
+                </div>
+                <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-green">
+                <div class="inner">
+                    <h3>@Model.request_count<sup style="font-size: 20px"></sup></h3>
+                    <p>Requests</p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-users"></i>
+                </div>
+                <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-yellow">
+                <div class="inner">
+                    <h3>@Model.annonce_count</h3>
+                    <p>Annonces</p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-person"></i>
+                </div>
+                <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-red">
+                <div class="inner">
+                    <h3>65</h3>
+                    <p>This Month</p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-pie-graph"></i>
+                </div>
+                <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <!-- ./col -->
+    </div>
+    <!-- /.row -->
+    <!-- Main row -->
+    <div class="row">
+        <!-- Left col -->
+        <section class="col-lg-7 connectedSortable">
+            <!-- Custom tabs (Charts with tabs)-->
+            <!-- DONUT CHART -->
+            <div class="box box-danger">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Donut Chart</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                    </div>
+                </div>
+                <div class="box-body chart-responsive">
+                    <div class="chart" id="sales-chart" style="height: 300px; position: relative;"></div>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.nav-tabs-custom -->
+        </section>
+        <!-- /.Left col -->
+        <!-- right col (We are only adding the ID to make the widgets sortable)-->
+        <section class="col-lg-5 connectedSortable">
+            <!-- TO DO List -->
+            <div class="box box-primary">
+                <div class="box-header">
+                    <i class="ion ion-clipboard"></i>
+                    <h3 class="box-title">To Do List</h3>
+                    <div class="box-tools pull-right">
+                        <ul class="pagination pagination-sm inline">
+                            <li><a href="#">«</a></li>
+                            <li><a href="#">1</a></li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li><a href="#">»</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <!-- See dist/js/pages/dashboard.js to activate the todoList plugin -->
+                    <ul class="todo-list"></ul>
+                       
+                <!-- /.box-body -->
+                
+            </div>
+            <!-- /.box -->
+        </section>
+        <!-- right col -->
+    </div>
+    <!-- /.row (main row) -->
+</section>
+
+<!-- Morris.js charts -->
+<script src="~/wwwroot/bower_components/raphael/raphael.min.js"></script>
+<script src="~/wwwroot/bower_components/morris.js/morris.min.js"></script>
+<script>
+      $(function () {
+        "use strict";
+        //DONUT CHART
+        var donut = new Morris.Donut({
+          element: 'sales-chart',
+          resize: true,
+          colors: ["#3c8dbc", "#f56954", "#00a65a"],
+          data: [
+            {label: "Registered Users", value: @Model.users_count},
+            {label: "Registered Consulors", value: @Model.consulors_count},
+            {label: "Annoces Submited Till Now ", value: @Model.annonce_count},
+            {label: "Request Submited Till Now ", value: @Model.request_count},
+
+
+          ],
+          hideHover: 'auto'
+        });
+      });
+</script>
+    
+    }

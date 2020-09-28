@@ -1,0 +1,164 @@
+﻿@model Dari.Domain.Furniture
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+} 
+@section scripts{
+    
+<h2>Edit Furniture</h2>
+
+ 
+@using (Html.BeginForm("Edit", "Furniture", FormMethod.Post, new { enctype = "multipart/form-data" }))
+
+{
+    @Html.AntiForgeryToken()
+    <div class="container">
+        <div class="form-horizontal">
+
+            <hr />
+
+
+
+            <div class="form-group">
+                @Html.DropDownList("Category", ViewBag.Category as List<SelectListItem>, "Select Category", new
+           {
+               @id = "ddlcateg",
+               @class = "form-control",
+               style = "width: 200px"
+           })
+            </div>
+
+            <div class="form-group">
+
+                @Html.DropDownList("Type", new SelectList(string.Empty), "Select Type", new
+           {
+               @id = "ddltype",
+               @class = "form-control",
+               style = "width: 200px"
+           })
+            </div>
+
+
+            <script type="text/javascript" src="~/Content/js/jquery-1.10.2.js"></script>
+
+            <script type="text/javascript">
+        $(document).ready(function()
+        {
+            document.getElementById("ddlcateg").options[0].disabled = true;
+
+        $("#ddlcateg").change(function(){
+        var SelecedVal = $(this).val();
+        $("#ddltype").html('');
+        $("#ddltype").append($("<option></option>").attr("value", '')
+            .text('Select Type'));
+        if (SelecedVal != '') {
+
+
+            $.get('/Furniture/GetType/', {
+                "CategoryFurnitureId": SelecedVal
+            }).done(function (data) {
+                $.each(data, function (index, item) {
+
+                    document.getElementById("ddltype").options[0].disabled = true;
+                    $("#ddltype").append($("<option></option>").attr("value", item.TypeFurnitureId).text(item.TypeName));
+                });
+
+            })
+        }
+        });
+        })
+            </script>
+
+
+
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { style = "width: 400px", @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Address, new { htmlAttributes = new { style = "width: 400px", @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    Upload a file
+                    @Html.TextBox("Image", "", new { type = "file" })
+                    @Html.ValidationMessageFor(model => model.Image)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Price, new { htmlAttributes = new { style = "width: 400px", @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.description, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.description, new { htmlAttributes = new { style = "width: 400px", @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Height, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Height, new { htmlAttributes = new { style = "width: 400px", @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Height, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Width, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Width, new { htmlAttributes = new { style = "width: 400px", @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Width, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Depth, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Depth, new { htmlAttributes = new { style = "width: 400px", @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Depth, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Qte, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Qte, new { htmlAttributes = new { style = "width: 400px", @class = "form-control", @min = "1" } })
+                    @Html.ValidationMessageFor(model => model.Qte, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        @Html.ActionLink("Back to List", "Indexfurniture_owner")
+    </div>
+}
+}
